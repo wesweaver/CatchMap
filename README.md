@@ -6,6 +6,8 @@ Read my blog posts about:
 * [The initial project (June 26, 2018)](http://wesmapping.com/blog/catchmap-easy-and-dynamic-fish-posting-map-app/)
 * [The major update (November 12, 2018)](http://wesmapping.com/blog/catchmap-version-2-a-whole-lot-of-updates/)
 
+![Northern Puffer Pop Up](http://wesmapping.com/blog/wp-content/uploads/2018/11/pupperpopup.jpg "Northern Puffer Pop Up")
+
 ## Dependencies
 This project makes heavy use of:
 * [Tabletop.js](https://github.com/jsoma/tabletop)
