@@ -1,31 +1,31 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>CatchMap</title>
     <meta charset="utf-8" />
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
-	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+	  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-	<script src="./include/Leaflet.markercluster/leaflet.markercluster.js"></script>
-	<script src="./include/Leaflet.vector-markers/leaflet-vector-markers.js"></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
-	<link rel="stylesheet" href="./include/catchmapmain.css" />
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	  <script src="./include/Leaflet.markercluster/leaflet.markercluster.js"></script>
+	  <script src="./include/Leaflet.vector-markers/leaflet-vector-markers.js"></script>
+	  <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+	  <link rel="stylesheet" href="./include/catchmapmain.css" />
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-	<link rel="stylesheet" href="./include/Leaflet.markercluster/MarkerCluster.css" />
-	<link rel="stylesheet" href="./include/Leaflet.markercluster/MarkerCluster.Default.css" />
-	<link rel="stylesheet" href="./include/Leaflet.vector-markers/leaflet-vector-markers.css">
+	  <link rel="stylesheet" href="./include/Leaflet.markercluster/MarkerCluster.css" />
+	  <link rel="stylesheet" href="./include/Leaflet.markercluster/MarkerCluster.Default.css" />
+	  <link rel="stylesheet" href="./include/Leaflet.vector-markers/leaflet-vector-markers.css">
     <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
 	<div id="titlebar" class="titleblock">CatchMap</div>
 
-    <div id="map"></div>
-	
+  <div id="map"></div>
+
 	<div id="button" class="button" onclick="openNav()">&Sigma;</div>
-	
+
 	<div id="stats" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<div class="datapoint" id="totalfish">Loading...</div>
@@ -38,7 +38,7 @@
 		<br>
 		<div class="chartframe" id="chart4"></div>
 		<br>
-		<p>CatchMap created by Wes Weaver<br><a href="http://www.wesmapping.com" class="redlink">wesmapping.com</a> &bull; <a href="http://www.twitter.com/WesWeaver" class="redlink">@WesWeaver</a></a> &bull; <a href="https://www.instagram.com/wes_fishes_philly/" class="redlink">@wes_fishes_philly</a><br>
+		<p>CatchMap created by Wes Weaver<br><a href="http://www.wesmapping.com" class="redlink">wesmapping.com</a> &bull; <a href="http://www.twitter.com/WesWeaver" class="redlink">@WesWeaver</a></a> &bull; <a href="https://www.instagram.com/wes_fishes_philly/" class="redlink">@wes_fishes_philly</a> &bull; <a href="https://github.com/wesweaver/CatchMap" class="redlink">CatchMap on Github</a><br>
 		This software is free and open source.
 		<br><br><br><br><br><br>
 	</div>
@@ -59,7 +59,7 @@
                 attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
             })
         }).addTo(map);
-		
+
 		function openNav() {
 			document.getElementById("stats").style.width = "300px";
 			document.getElementById("totalfish").innerHTML = "Total Catches: " + totalCatches.toString();
@@ -68,41 +68,45 @@
 		function closeNav() {
 			document.getElementById("stats").style.width = "0";
 		};
-		
+
 		function ColorLuminance(hex, lum){
 			hex = String(hex).replace(/[^0-9a-f]/gi, '');
 			if (hex.length < 6){
 				hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
 			}
 			lum = lum || 0;
-		
+
 			var rgb = "#", c, i;
 			for (i=0;i<3;i++){
 				c = parseInt(hex.substr(i*2,2), 16);
 				c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
 				rgb += ("00"+c).substr(c.length);
 			}
-			
+
 			return rgb;
 		};
-		
+
 		var match_month = function(monthid, year) {
-			var month = new Array();
-			month[0] = "Jan";
-			month[1] = "Feb";
-			month[2] = "Mar";
-			month[3] = "Apr";
-			month[4] = "May";
-			month[5] = "Jun";
-			month[6] = "Jul";
-			month[7] = "Aug";
-			month[8] = "Sep";
-			month[9] = "Oct";
-			month[10] = "Nov";
-			month[11] = "Dec";
-			return month[monthid];
+      if (monthid > 11 | monthid < 0){
+        return "";
+      } else {
+			    var month = new Array();
+			    month[0] = "Jan";
+			    month[1] = "Feb";
+			    month[2] = "Mar";
+			    month[3] = "Apr";
+			    month[4] = "May";
+			    month[5] = "Jun";
+			    month[6] = "Jul";
+			    month[7] = "Aug";
+			    month[8] = "Sep";
+			    month[9] = "Oct";
+			    month[10] = "Nov";
+			    month[11] = "Dec";
+			    return month[monthid];
+        };
 		};
-		
+
 		var group_pie_data = function(fieldname, sheet){
 			var data = d3.nest()
 			.key(function(d) {return d[fieldname];})
@@ -114,7 +118,7 @@
 			}
 			return chartData
 		};
-		
+
 		var group_bar_data = function(sheet){
 			var data = d3.nest()
 			.key(function(d) {return new Date(d.Date).getFullYear();})
@@ -137,21 +141,21 @@
 			}
 			return chartData;
 		};
-		
+
 		// establish global data variables
 		var totalCatches = null;
 		var speciesData = null;
 		var locationData = null;
 		var baitData = null;
 		var monthlyData = null;
-		
+
 		var render_charts = function(){
 			speciesChart = create_pie_chart("chart1", "Species", speciesData, "markerColorSet").render();
 			locationChart = create_pie_chart("chart2", "Locations", locationData, "colorSet3").render();
 			baitChart = create_pie_chart("chart3", "Bait Types", baitData, "colorSet2").render();
-			monthChart = create_bar_chart("chart4", "Catches by Month", monthlyData).render(); 
+			monthChart = create_bar_chart("chart4", "Catches by Month", monthlyData).render();
 		};
-		
+
 		var create_pie_chart = function(chartdiv, titleText, datagroup, colorset) {
 			var chart = new CanvasJS.Chart(chartdiv, {
 					width: "250",
@@ -186,13 +190,13 @@
 				});
 			return chart;
 		};
-		
+
 		var create_bar_chart = function(chartdiv, titleText, datagroup){
 			var chart = new CanvasJS.Chart(chartdiv, {
 				width: "250",
 				height: "295",
 				backgroundColor: "#2d2d2d",
-				dataPointWidth: 16,
+				dataPointWidth: 15,
 				animationEnabled: true,
 				title: {
 					text: titleText,
@@ -205,8 +209,8 @@
 					fontColor: "white",
 				},
 				axisX: {
-					minimum: 0,
-					maximum: 11,
+					minimum: -1,
+					maximum: 12,
 					interval: 1,
 					reversed: true,
 					labelFontColor: "white",
@@ -226,14 +230,14 @@
 				});
 			return chart;
 		};
-		
+
 		// Get colors from sheet and add to graph color array
 		colorArray = [];
 		CanvasJS.addColorSet("markerColorSet", colorArray);
-		
-		Tabletop.init({ 
+
+		Tabletop.init({
 			key: 'https://docs.google.com/spreadsheets/d/1-_JLlZvz6UQ4oWq2klBwBbHWgPMHNsHJMwgsEJ5Ozck/edit?usp=sharing', //google spreadsheet id
-			callback: function(sheet, tabletop){ 
+			callback: function(sheet, tabletop){
 				var markers = L.markerClusterGroup({maxClusterRadius: 30, showCoverageOnHover: false});
 				for (var i in sheet){
 					var place = sheet[i]; //getting e row from table
@@ -250,7 +254,7 @@
 						'<strong>Notes: </strong>' + place.Notes + '<br/>' +
 						"<img src='" + place.Photo + "?raw=1' style='width:95%; max-width:100px;'/>"
 					);
-					
+
 					// Add Marker to Marker Layer
 					markers.addLayer(L.marker([place.Lat, place.Lng], {icon: L.VectorMarkers.icon({icon: 'fish', markerColor: place.markerColor, prefix: 'fa'})}).bindPopup(popUpContent, {minWidth: 250, maxWidth: 300}));
 					// Push colors to colorArray for graphs
@@ -261,16 +265,16 @@
 				}
 				map.addLayer(markers);
 				map.fitBounds(markers.getBounds());
-				
+
 				speciesData = group_pie_data('Species', sheet);
 				locationData = group_pie_data('Location', sheet);
 				baitData = group_pie_data('BaitType', sheet);
 				totalCatches = sheet.length;
 				monthlyData = group_bar_data(sheet);
 			},
-		simpleSheet: true 
+		simpleSheet: true
 		});
-			
+
     </script>
 </body>
 </html>
